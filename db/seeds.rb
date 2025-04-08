@@ -1,9 +1,21 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+Poster.destroy_all
+
+Poster.create(
+  name: "REGRET",
+  description: "Hard work rarely pays off.",
+  price: 90.00,
+  year: 2025,
+  vintage: true,
+  img_url: "https://miro.medium.com/v2/resize:fit:1200/1*uNCVd_VqFOcdxhsL71cT5Q.jpeg"
+)
+
+Poster.create(
+  name: "FART",
+  description: "Hard work rarely pays off.",
+  price: 99.00,
+  year: 2025,
+  vintage: true,
+  img_url: "https://miro.medium.com/v2/resize:fit:1200/1*uNCVd_VqFOcdxhsL71cT5Q.jpeg"
+)
+
+puts "Created #{Poster.count} posters"
