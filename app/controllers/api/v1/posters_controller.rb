@@ -12,11 +12,12 @@ module Api
       end
 
       def show
-        
+        poster = Poster.find(params[:id])
+        render json: format_poster(poster)
       end
 
       def create
-       
+        render json: Poster.create(poster_params)
       end
 
       def update
@@ -50,3 +51,6 @@ module Api
     end
   end
 end
+
+
+
