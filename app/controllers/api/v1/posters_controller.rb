@@ -3,35 +3,29 @@ module Api
     class PostersController < ApplicationController
       def index
         posters = Poster.all
-        
-        render json: {
-          data: posters.map do |poster|
-            format_poster(poster)
-          end
-        }
-        # render json: format_poster(posters)
+        render json: PosterSerializer.format_posters(posters)
       end
 
       def show
         poster = Poster.find(params[:id])
-        render json: format_poster(poster)
+        render json: PosterSerializer.format_single_poster(poster)
       end
 
       def create
-        render json: Poster.create(poster_params)
+        poster = Poster.create(poster_params)
+        render json: PosterSerializer.format_single_poster(poster)
       end
 
       def update
         poster = Poster.find_by(id: params[:id])
-  
         poster.update(poster_params)
-          render json: {
-            data: format_poster(poster)
-        }
+        render json: PosterSerializer.format_single_poster(poster)
       end
     
       def destroy
-        render json: Poster.delete(params[:id])
+        poster = Poster.find(params[:id])
+        poster.destroy
+        head :no_content
       end
 
       private
@@ -39,24 +33,6 @@ module Api
       def poster_params
         params.permit(:name, :description, :price, :year, :vintage, :img_url)
       end
-
-      def format_poster(poster)
-        {
-          id: poster.id.to_s,
-          type: 'poster',
-          attributes: {
-            name: poster.name,
-            description: poster.description,
-            price: poster.price,
-            year: poster.year,
-            vintage: poster.vintage,
-            img_url: poster.img_url
-          }
-        }
-      end
     end
   end
 end
-
-
-
