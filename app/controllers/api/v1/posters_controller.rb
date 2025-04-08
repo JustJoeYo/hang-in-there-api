@@ -29,6 +29,10 @@ module Api
 
       private 
 
+      def poster_params
+        params.permit(:name, :description, :price, :year, :vintage, :img_url)
+      end
+
       def format_poster(poster)
         {
           id: poster.id.to_s,
