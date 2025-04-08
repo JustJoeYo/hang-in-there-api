@@ -9,6 +9,7 @@ module Api
             format_poster(poster)
           end
         }
+        # render json: format_poster(posters)
       end
 
       def show
@@ -21,14 +22,19 @@ module Api
       end
 
       def update
-        
+        poster = Poster.find_by(id: params[:id])
+  
+        poster.update(poster_params)
+          render json: {
+            data: format_poster(poster)
+        }
       end
-
+    
       def destroy
-        
+        render json: Poster.delete(params[:id])
       end
 
-      private 
+      private
 
       def poster_params
         params.permit(:name, :description, :price, :year, :vintage, :img_url)
