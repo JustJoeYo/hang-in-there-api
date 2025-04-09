@@ -39,7 +39,13 @@ RSpec.describe "Posters API", type: :request do
 
   describe "GET /api/v1/posters" do
     it "returns all posters" do
+      get "/api/v1/posters"
       
+      expect(response).to be_successful
+      
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response["data"].count).to eq(3)
+      expect(parsed_response["meta"]["count"]).to eq(3)
     end
     
     it "formats the JSON response correctly" do
