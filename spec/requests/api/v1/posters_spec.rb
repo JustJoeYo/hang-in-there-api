@@ -65,19 +65,28 @@ RSpec.describe "Posters API", type: :request do
     end
     
     it "filters posters by name" do
-     get "/api/v1/posters"
+     get "/api/v1/posters?name=re"
       
       expect(response).to be_successful
 
       parsed_response = JSON.parse(response.body)
-
       
+      
+
+
     end
     
     it "filters posters by minimum price" do
-      get "/api/v1/posters"
+      get "/api/v1/posters?min_price=40"
       
       expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response["data"].count).to eq(2)
+
+      min_price = parsed_response["data"].map { |poster| poster["attributes"]["price"]} 
+
+      expect(min_price.all? { |price| price >= 40 }).to be true 
     end
     
     it "filters posters by maximum price" do
