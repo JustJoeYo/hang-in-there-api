@@ -70,10 +70,11 @@ RSpec.describe "Posters API", type: :request do
       expect(response).to be_successful
 
       parsed_response = JSON.parse(response.body)
-      
-      
 
+      names = parsed_response["data"].map { |poster| poster["attributes"]["name"]}
 
+      expect(names).to include("REGRET")
+      expect(names).not_to include("DISASTER", "TERRIBLE")
     end
     
     it "filters posters by minimum price" do
