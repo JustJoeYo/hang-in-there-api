@@ -1,0 +1,128 @@
+require 'rails_helper'
+
+RSpec.configure do |config|
+  config.formatter = :documentation
+end
+
+RSpec.describe "Posters API", type: :request do
+  before(:each) do
+    @poster1 = Poster.create!(
+      name: "DISASTER",
+      description: "It's a mess",
+      price: 43.00,
+      year: 2016,
+      vintage: false,
+      img_url: "https://image1.jpg",
+      created_at: 1.day.ago
+    )
+    
+    @poster2 = Poster.create!(
+      name: "TERRIBLE",
+      description: "It's awful",
+      price: 30.00,
+      year: 2022,
+      vintage: true,
+      img_url: "https://image2.jpg",
+      created_at: 2.days.ago
+    )
+    
+    @poster3 = Poster.create!(
+      name: "REGRET",
+      description: "Bad choices",
+      price: 100.00,
+      year: 2020,
+      vintage: true,
+      img_url: "https://image3.jpg",
+      created_at: 3.days.ago
+    )
+  end
+
+  describe "GET /api/v1/posters" do
+    it "returns all posters" do
+      
+    end
+    
+    it "formats the JSON response correctly" do
+      
+    end
+    
+    it "filters posters by name" do
+     
+    end
+    
+    it "filters posters by minimum price" do
+      
+    end
+    
+    it "filters posters by maximum price" do
+      
+    end
+    
+    it "sorts posters by created_at in ascending order" do
+      
+    end
+    
+    it "sorts posters by created_at in descending order" do
+      
+    end
+    
+    it "combines filtering and sorting parameters" do
+      
+    end
+    
+    it "returns an empty array when no posters match the criteria" do
+      
+    end
+  end
+
+  describe "GET /api/v1/posters/:id" do
+    it "returns a single poster" do
+      
+    end
+    
+    it "returns a 404 when the poster doesn't exist" do
+     
+    end
+  end
+  
+  describe "POST /api/v1/posters" do
+    it "creates a new poster" do
+      
+    end
+    
+    it "ignores extra parameters" do
+      
+    end
+  end
+  
+  describe "PATCH /api/v1/posters/:id" do
+    it "updates a poster" do
+      
+    end
+    
+    it "returns a 404 when the poster doesn't exist" do
+      
+    end
+  end
+  
+  describe "DELETE /api/v1/posters/:id" do
+    before(:each) do
+      @poster = Poster.create!(
+        name: "DELETE",
+        description: "please delete me...",
+        price: 200.00,
+        year: 2025,
+        vintage: false,
+        img_url: "https://delete.jpg"
+      )
+    end
+    
+    it "deletes a poster" do
+      
+    end
+    
+    it "returns a 404 when the poster doesn't exist" do
+      
+    end
+  end
+end

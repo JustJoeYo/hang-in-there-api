@@ -20,8 +20,13 @@ module Api
 
       def update
         poster = Poster.find_by(id: params[:id])
-        poster.update(poster_params)
-        render json: PosterSerializer.format_single_poster(poster)
+        
+        if poster
+          poster.update(poster_params)
+          render json: PosterSerializer.format_single_poster(poster)
+        else
+          render json: { error: "Poster not found" }, status: :not_found # 404 Not Found edge case, could add to all but update is most important
+        end
       end
     
       def destroy
