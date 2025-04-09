@@ -49,35 +49,65 @@ RSpec.describe "Posters API", type: :request do
     end
     
     it "formats the JSON response correctly" do
+      get "/api/v1/posters"
+
+      expect(response).to be_successful
       
+      parsed_response = JSON.parse(response.body)
+      poster_data = parsed_response["data"][0]
+
+      expect(poster_data).to have_key("id")
+      expect(poster_data).to have_key("type")
+      expect(poster_data).to have_key("attributes")
+      
+      expect(poster_data["type"]).to eq("poster")
+      expect(poster_data["attributes"]).to include("name", "description", "price", "year", "vintage", "img_url" )
     end
     
     it "filters posters by name" do
-     
+     get "/api/v1/posters"
+      
+      expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+
+      
     end
     
     it "filters posters by minimum price" do
+      get "/api/v1/posters"
       
+      expect(response).to be_successful
     end
     
     it "filters posters by maximum price" do
+      get "/api/v1/posters"
       
+      expect(response).to be_successful
     end
     
     it "sorts posters by created_at in ascending order" do
+      get "/api/v1/posters"
       
+      expect(response).to be_successful
     end
     
     it "sorts posters by created_at in descending order" do
+      get "/api/v1/posters"
       
+      expect(response).to be_successful
     end
     
     it "combines filtering and sorting parameters" do
+      get "/api/v1/posters"
       
+      expect(response).to be_successful
     end
     
     it "returns an empty array when no posters match the criteria" do
+      get "/api/v1/posters"
       
+      expect(response).to be_successful
     end
   end
 
