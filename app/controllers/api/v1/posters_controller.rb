@@ -25,7 +25,7 @@ module Api
           poster.update(poster_params)
           render json: PosterSerializer.format_single_poster(poster)
         else
-          render json: { error: "Poster not found" }, status: :not_found # 404 Not Found edge case, could add to all but update is most important
+          render json: { error: "Poster not found" }, status: :not_found # 404 Not Found edge case, could add to all but update is most important (for my test right now)
         end
       end
     
