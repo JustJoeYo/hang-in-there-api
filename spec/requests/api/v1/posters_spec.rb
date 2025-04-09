@@ -104,15 +104,21 @@ RSpec.describe "Posters API", type: :request do
     end
     
     it "sorts posters by created_at in ascending order" do
-      get "/api/v1/posters"
-      
+      get "/api/v1/posters?sort=asc"
       expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+      poster_ids = parsed_response["data"].map {|poster| poster["id"].to_i}
+
+      expect(poster_ids.first).to eq(@poster1)
+      expect(poster_ids.last).to eq(@poster2)
     end
     
     it "sorts posters by created_at in descending order" do
-      get "/api/v1/posters"
+      get "/api/v1/posters?sort=desc"
       
       expect(response).to be_successful
+      
     end
     
     it "combines filtering and sorting parameters" do
