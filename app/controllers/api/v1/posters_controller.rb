@@ -45,11 +45,11 @@ module Api
         end
 
         if params[:min_price]
-          
+          posters = posters.where("price >= ?", params[:min_price])
         end
 
         if params[:max_price]
-          
+          posters = posters.where("price <= ?", params[:max_price])
         end
 
         if params[:sort] && !params[:name]
