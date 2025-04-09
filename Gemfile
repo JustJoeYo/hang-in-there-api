@@ -42,6 +42,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "simplecov"
   gem "pry"
+  gem "pgreset"
 end
 
 group :development do

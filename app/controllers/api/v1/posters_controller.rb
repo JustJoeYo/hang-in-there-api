@@ -4,7 +4,7 @@ module Api
   module V1
     class PostersController < ApplicationController
       def index
-        posters = Poster.all
+        posters = sorted_posters
         render json: PosterSerializer.format_posters(posters)
       end
 
@@ -34,6 +34,21 @@ module Api
 
       def poster_params
         params.permit(:name, :description, :price, :year, :vintage, :img_url)
+      end
+
+      def sorted_posters
+        if params[:sort]
+          case params[:sort].downcase
+          when "asc" 
+            Poster.order(created_at: :asc)
+          when "desc" 
+            Poster.order(created_at: :desc)
+          else
+            Poster.all
+          end
+          else
+            Poster.all
+        end
       end
     end
   end

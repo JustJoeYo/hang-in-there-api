@@ -16,7 +16,8 @@ class PosterSerializer
   
   def self.format_posters(posters)
     {
-      data: posters.map { |poster| format_poster(poster) }
+      data: posters.map { |poster| format_poster(poster) },
+      meta: { count: posters.length }
     }
   end
   
@@ -25,4 +26,7 @@ class PosterSerializer
       data: format_poster(poster)
     }
   end
+
+  
+
 end
