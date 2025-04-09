@@ -127,15 +127,26 @@ RSpec.describe "Posters API", type: :request do
     end
     
     it "combines filtering and sorting parameters" do
-      get "/api/v1/posters"
-      
+      get "/api/v1/posters?min_price=40&max_price=120&sort=desc"
       expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response["data"].count).to eq(2)
+      
+      poster_ids = parsed_response["data"].map {|poster| poster["id"].to_i}
+      expect(poster_ids.first).to eq(@poster1.id)
+      expect(poster_ids.last).to eq(@poster3.id)
     end
     
     it "returns an empty array when no posters match the criteria" do
-      get "/api/v1/posters"
+      get "/api/v1/posters?min_price=1000"
       
       expect(response).to be_successful
+      
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response["data"]).to be_empty
+      expect(parsed_response["meta"]["count"]).to eq(0)
     end
   end
 
