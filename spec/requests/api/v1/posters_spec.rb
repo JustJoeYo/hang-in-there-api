@@ -48,7 +48,7 @@ RSpec.describe "Posters API", type: :request do
       expect(parsed_response[:meta][:count]).to eq(3)
     end
     
-    it "formats the JSON response correctly" do
+    it "formatted JSON response" do
       get "/api/v1/posters"
 
       expect(response).to be_successful
@@ -77,7 +77,7 @@ RSpec.describe "Posters API", type: :request do
       expect(names).not_to include("DISASTER", "TERRIBLE")
     end
     
-    it "filters posters by minimum price" do
+    it "filters posters by min_price" do
       get "/api/v1/posters?min_price=40"
       
       expect(response).to be_successful
@@ -90,7 +90,7 @@ RSpec.describe "Posters API", type: :request do
       expect(min_price.all? { |price| price >= 40 }).to be true 
     end
     
-    it "filters posters by maximum price" do
+    it "filters posters by max_price" do
       get "/api/v1/posters?max_price=40"
       
       expect(response).to be_successful
@@ -103,7 +103,7 @@ RSpec.describe "Posters API", type: :request do
       expect(min_price.all? { |price| price <= 40 }).to be true 
     end
     
-    it "sorts posters by created_at in ascending order" do
+    it "sorts posters by created_at in asc order" do
       get "/api/v1/posters?sort=asc"
       expect(response).to be_successful
 
@@ -114,7 +114,7 @@ RSpec.describe "Posters API", type: :request do
       expect(poster_ids.last).to eq(@poster1.id)
     end
     
-    it "sorts posters by created_at in descending order" do
+    it "sorts posters by created_at in desc order" do
       get "/api/v1/posters?sort=desc" 
       expect(response).to be_successful
 
@@ -126,7 +126,7 @@ RSpec.describe "Posters API", type: :request do
       
     end
     
-    it "combines filtering and sorting parameters" do
+    it "filtering and sorting parameters one query" do
       get "/api/v1/posters?min_price=40&max_price=120&sort=desc"
       expect(response).to be_successful
 
@@ -139,7 +139,7 @@ RSpec.describe "Posters API", type: :request do
       expect(poster_ids.last).to eq(@poster3.id)
     end
     
-    it "returns an empty array when no posters match the criteria" do
+    it "no posters match the criteria case" do
       get "/api/v1/posters?min_price=1000"
       
       expect(response).to be_successful
