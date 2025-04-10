@@ -49,35 +49,104 @@ RSpec.describe "Posters API", type: :request do
     end
     
     it "formats the JSON response correctly" do
+      get "/api/v1/posters"
+
+      expect(response).to be_successful
       
+      parsed_response = JSON.parse(response.body)
+      poster_data = parsed_response["data"][0]
+
+      expect(poster_data).to have_key("id")
+      expect(poster_data).to have_key("type")
+      expect(poster_data).to have_key("attributes")
+      
+      expect(poster_data["type"]).to eq("poster")
+      expect(poster_data["attributes"]).to include("name", "description", "price", "year", "vintage", "img_url" )
     end
     
     it "filters posters by name" do
-     
+     get "/api/v1/posters?name=re"
+      
+      expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+
+      names = parsed_response["data"].map { |poster| poster["attributes"]["name"]}
+
+      expect(names).to include("REGRET")
+      expect(names).not_to include("DISASTER", "TERRIBLE")
     end
     
     it "filters posters by minimum price" do
+      get "/api/v1/posters?min_price=40"
       
+      expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response["data"].count).to eq(2)
+
+      min_price = parsed_response["data"].map { |poster| poster["attributes"]["price"]} 
+
+      expect(min_price.all? { |price| price >= 40 }).to be true 
     end
     
     it "filters posters by maximum price" do
+      get "/api/v1/posters?max_price=40"
       
+      expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response["data"].count).to eq(1)
+
+      min_price = parsed_response["data"].map { |poster| poster["attributes"]["price"]} 
+
+      expect(min_price.all? { |price| price <= 40 }).to be true 
     end
     
     it "sorts posters by created_at in ascending order" do
-      
+      get "/api/v1/posters?sort=asc"
+      expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+      poster_ids = parsed_response["data"].map {|poster| poster["id"].to_i}
+
+      expect(poster_ids.first).to eq(@poster3.id)
+      expect(poster_ids.last).to eq(@poster1.id)
     end
     
     it "sorts posters by created_at in descending order" do
+      get "/api/v1/posters?sort=desc" 
+      expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+      poster_ids = parsed_response["data"].map {|poster| poster["id"].to_i}
+
+      expect(poster_ids.first).to eq(@poster1.id)
+      expect(poster_ids.last).to eq(@poster3.id)
       
     end
     
     it "combines filtering and sorting parameters" do
+      get "/api/v1/posters?min_price=40&max_price=120&sort=desc"
+      expect(response).to be_successful
+
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response["data"].count).to eq(2)
       
+      poster_ids = parsed_response["data"].map {|poster| poster["id"].to_i}
+      expect(poster_ids.first).to eq(@poster1.id)
+      expect(poster_ids.last).to eq(@poster3.id)
     end
     
     it "returns an empty array when no posters match the criteria" do
+      get "/api/v1/posters?min_price=1000"
       
+      expect(response).to be_successful
+      
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response["data"]).to be_empty
+      expect(parsed_response["meta"]["count"]).to eq(0)
     end
   end
 
