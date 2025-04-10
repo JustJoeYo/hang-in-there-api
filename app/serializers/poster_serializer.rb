@@ -26,7 +26,4 @@ class PosterSerializer
       data: format_poster(poster)
     }
   end
-
-  
-
 end

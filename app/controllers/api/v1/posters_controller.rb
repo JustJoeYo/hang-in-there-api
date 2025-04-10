@@ -4,7 +4,7 @@ module Api
   module V1
     class PostersController < ApplicationController
       def index
-        posters = sorted_posters
+        posters = Poster.filter_and_sort(params)
         render json: PosterSerializer.format_posters(posters)
       end
 
@@ -37,36 +37,8 @@ module Api
 
       private
 
-      def poster_params
+      def poster_params # this is context specific, should i really move it to the model?
         params.permit(:name, :description, :price, :year, :vintage, :img_url)
-      end
-
-      def sorted_posters
-        posters = Poster.all 
-
-        if params[:name]
-          search_name = "%#{params[:name].downcase}%"
-          posters = posters.where("LOWER(name) LIKE ?", search_name).order(:name)
-        end
-
-        if params[:min_price]
-          posters = posters.where("price >= ?", params[:min_price])
-        end
-
-        if params[:max_price]
-          posters = posters.where("price <= ?", params[:max_price])
-        end
-
-        if params[:sort] && !params[:name]
-          case params[:sort].downcase
-          when "asc"
-            posters = posters.order(created_at: :asc)
-          when "desc"
-            posters = posters.order(created_at: :desc)
-          end
-        end
-      
-        posters
       end
     end
   end

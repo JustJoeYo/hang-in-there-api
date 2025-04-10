@@ -276,6 +276,33 @@
       "/Users/justjoe/Desktop/TuringMod2/projects/hang-in-there-api/app/models/poster.rb": {
         "lines": [
           1,
+          1,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          0,
+          null,
           null
         ]
       },
@@ -529,34 +556,6 @@
           3,
           null,
           null,
-          1,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          null,
-          null,
-          null,
-          0,
-          null,
-          null,
           null,
           null
         ]
@@ -591,9 +590,6 @@
           4,
           null,
           null,
-          null,
-          null,
-          null,
           null
         ]
       },
@@ -604,6 +600,6 @@
         ]
       }
     },
-    "timestamp": 1744297916
+    "timestamp": 1744299318
   }
 }
