@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2025-04-09T16:00:51-07:00">2025-04-09T16:00:51-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2025-04-10T08:11:56-07:00">2025-04-10T08:11:56-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -598,7 +598,7 @@
 
             
 
-            <code class="ruby">          render json: { error: &quot;Poster not found&quot; }, status: :not_found # 404 Not Found edge case, could add to all but update is most important</code>
+            <code class="ruby">          render json: { error: &quot;Poster not found&quot; }, status: :not_found # 404 Not Found edge case, could add to all but update is most important (for my test right now)</code>
           </li>
         </div>
       
@@ -5269,7 +5269,7 @@
 
             
 
-            <code class="ruby">      parsed_response = JSON.parse(response.body)</code>
+            <code class="ruby">      parsed_response = JSON.parse(response.body, symbolize_names: true)</code>
           </li>
         </div>
       
@@ -5281,7 +5281,7 @@
 
             
 
-            <code class="ruby">      expect(parsed_response[&quot;data&quot;][&quot;id&quot;]).to eq(@poster1.id.to_s)</code>
+            <code class="ruby">      expect(parsed_response[:data][:id]).to eq(@poster1.id.to_s)</code>
           </li>
         </div>
       
@@ -5293,7 +5293,7 @@
 
             
 
-            <code class="ruby">      expect(parsed_response[&quot;data&quot;][&quot;attributes&quot;][&quot;name&quot;]).to eq(&quot;DISASTER&quot;)</code>
+            <code class="ruby">      expect(parsed_response[:data][:attributes][:name]).to eq(&quot;DISASTER&quot;)</code>
           </li>
         </div>
       
@@ -5561,7 +5561,7 @@
 
             
 
-            <code class="ruby">      parsed_response = JSON.parse(response.body)</code>
+            <code class="ruby">      parsed_response = JSON.parse(response.body, symbolize_names: true)</code>
           </li>
         </div>
       
@@ -5573,7 +5573,7 @@
 
             
 
-            <code class="ruby">      expect(parsed_response[&quot;data&quot;][&quot;attributes&quot;][&quot;name&quot;]).to eq(&quot;ANXIETY&quot;)</code>
+            <code class="ruby">      expect(parsed_response[:data][:attributes][:name]).to eq(&quot;ANXIETY&quot;)</code>
           </li>
         </div>
       
@@ -5937,7 +5937,7 @@
 
             
 
-            <code class="ruby">      parsed_response = JSON.parse(response.body)</code>
+            <code class="ruby">      parsed_response = JSON.parse(response.body, symbolize_names: true)</code>
           </li>
         </div>
       
@@ -5949,7 +5949,7 @@
 
             
 
-            <code class="ruby">      expect(parsed_response[&quot;data&quot;][&quot;attributes&quot;][&quot;name&quot;]).to eq(&quot;UPDATED POSTER&quot;)</code>
+            <code class="ruby">      expect(parsed_response[:data][:attributes][:name]).to eq(&quot;UPDATED POSTER&quot;)</code>
           </li>
         </div>
       
@@ -5961,7 +5961,7 @@
 
             
 
-            <code class="ruby">      expect(parsed_response[&quot;data&quot;][&quot;attributes&quot;][&quot;price&quot;]).to eq(25.0)</code>
+            <code class="ruby">      expect(parsed_response[:data][:attributes][:price]).to eq(25.0)</code>
           </li>
         </div>
       
@@ -5973,7 +5973,7 @@
 
             
 
-            <code class="ruby">      expect(parsed_response[&quot;data&quot;][&quot;attributes&quot;][&quot;description&quot;]).to eq(&quot;Bad choices&quot;)</code>
+            <code class="ruby">      expect(parsed_response[:data][:attributes][:description]).to eq(&quot;Bad choices&quot;)</code>
           </li>
         </div>
       

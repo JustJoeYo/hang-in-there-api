@@ -81,9 +81,9 @@ RSpec.describe "Posters API", type: :request do
       
       expect(response).to be_successful
       
-      parsed_response = JSON.parse(response.body)
-      expect(parsed_response["data"]["id"]).to eq(@poster1.id.to_s)
-      expect(parsed_response["data"]["attributes"]["name"]).to eq("DISASTER")
+      parsed_response = JSON.parse(response.body, symbolize_names: true)
+      expect(parsed_response[:data][:id]).to eq(@poster1.id.to_s)
+      expect(parsed_response[:data][:attributes][:name]).to eq("DISASTER")
     end
     
     it "404 handler" do
@@ -108,8 +108,8 @@ RSpec.describe "Posters API", type: :request do
       
       expect(response).to be_successful
       
-      parsed_response = JSON.parse(response.body)
-      expect(parsed_response["data"]["attributes"]["name"]).to eq("ANXIETY")
+      parsed_response = JSON.parse(response.body, symbolize_names: true)
+      expect(parsed_response[:data][:attributes][:name]).to eq("ANXIETY")
       
       expect(Poster.last.name).to eq("ANXIETY")
     end
@@ -143,10 +143,10 @@ RSpec.describe "Posters API", type: :request do
       
       expect(response).to be_successful
       
-      parsed_response = JSON.parse(response.body)
-      expect(parsed_response["data"]["attributes"]["name"]).to eq("UPDATED POSTER")
-      expect(parsed_response["data"]["attributes"]["price"]).to eq(25.0)
-      expect(parsed_response["data"]["attributes"]["description"]).to eq("Bad choices")
+      parsed_response = JSON.parse(response.body, symbolize_names: true)
+      expect(parsed_response[:data][:attributes][:name]).to eq("UPDATED POSTER")
+      expect(parsed_response[:data][:attributes][:price]).to eq(25.0)
+      expect(parsed_response[:data][:attributes][:description]).to eq("Bad choices")
       
       @poster3.reload
       expect(@poster3.name).to eq("UPDATED POSTER")
